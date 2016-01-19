@@ -3,10 +3,16 @@ from socketserver import StreamRequestHandler, TCPServer
 import threading
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit, disconnect
+from flask.ext.bootstrap import Bootstrap, StaticCDN
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode='threading')
+
+Bootstrap(app)
+
+app.extensions['bootstrap']['cdns']['jquery'] = StaticCDN()
+app.extensions['bootstrap']['cdns']['bootstrap'] = StaticCDN()
 
 
 class EchoHandler(StreamRequestHandler):

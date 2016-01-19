@@ -25,6 +25,6 @@ def socket_send(msg):
 
 if __name__ == '__main__':
     logfile = open('/var/log/system.log', 'r')
-    loglines = follow(logfile)
-    for line in loglines:
+    log_lines = follow(logfile)
+    for line in log_lines:
         socket_send(line)
