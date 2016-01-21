@@ -1,3 +1,5 @@
+#!/bin/bash
+
 LOGS_DIR=$HOME/src/logs
 LOGS=(iapi.err iapi.log sapi.err kannel-routing.log sms-routing.err)
 PY=python3
