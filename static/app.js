@@ -9,7 +9,29 @@ $(document).ready(function(){
 
     socket.on('my response', function(msg) {
         var holder = $('#console');
-        holder.append('<div>' + msg.data + '</div>');
+
+        // Viewer advised, ugly solution follows... I was bored
+
+        var html_style = '';
+        if(msg.color != undefined) {
+            html_style = 'style="color: ' + msg.color + '"'
+        }
+
+        var html = '<div class="row' + row_no +'" ' + html_style +'>';
+
+        if(msg.ip != undefined) {
+            html += '[' + msg.ip + '] ';
+        }
+
+        if(msg.name != undefined) {
+            html += '[' + msg.name + '] ';
+        }
+
+        html += msg.msg;
+
+        html += '</div>';
+
+        holder.append(html);
 
         // I don't know why is that 41px there, it should have been 1...
         if (holder.prop('scrollHeight') - holder.prop('clientHeight') <= holder.scrollTop() + 41) {
