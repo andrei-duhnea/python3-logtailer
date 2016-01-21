@@ -92,12 +92,23 @@
 body {
     font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 300;
+    background-color: #252830;
+    color: white;
 }
 
 #console {
     /* don't set margin */
     padding: 5px;
+    font-weight: 400;
 }
 
-#console > div:nth-child(even) {background: #CCC}
-#console > div:nth-child(odd) {background: #FFF}
+#console > div:nth-child(even) {background: #252830}
+#console > div:nth-child(odd) {background: #2A2F3D}
+
+#console > div {
+    padding-left: 30px;
+}
+
+.navbar-custom-dropdown, .navbar-brand {
+    font-size: 23px;
+}

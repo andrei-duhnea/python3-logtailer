@@ -17,7 +17,7 @@ $(document).ready(function(){
             html_style = 'style="color: ' + msg.color + '"'
         }
 
-        var html = '<div class="row' + row_no +'" ' + html_style +'>';
+        var html = '<div id="crown' + row_no +'" class="crow "' + html_style +'>';
 
         if(msg.ip != undefined) {
             html += '[' + msg.ip + '] ';
@@ -43,7 +43,7 @@ $(document).ready(function(){
 
     // event handler for new connections
     socket.on('connect', function() {
-        socket.emit('my event', {data: 'I\'m connected!'});
+        socket.emit('my event', {data: 'socket.io Connected'});
     });
 
     // handlers for the different forms in the page
@@ -61,6 +61,11 @@ $(document).ready(function(){
     updateConsoleSize();
     $(window).resize(function() {
         updateConsoleSize();
+    });
+
+    $('#console').on('click','.crow', function () {
+        $(this).parent().find('.crow').css('background-color', '');
+        $(this).css('background-color', '#424124');
     });
 
 });

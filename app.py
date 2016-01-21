@@ -54,7 +54,7 @@ def disconnect_request():
 
 @socketio.on('connect')
 def test_connect():
-    emit('my response', {'msg': 'Connected'})
+    emit('my response', {'msg': 'Flask Connected'})
 
 
 if __name__ == '__main__':
