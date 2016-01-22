@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import json
 from socketserver import StreamRequestHandler, TCPServer
 import threading
 from flask import Flask, render_template
@@ -18,13 +19,12 @@ app.extensions['bootstrap']['cdns']['bootstrap'] = StaticCDN()
 class EchoHandler(StreamRequestHandler):
 
     def handle(self):
-        print('Got connection from', self.client_address)
-        msg = str(self.rfile.readline().strip(), 'utf-8')
+        json_msg = json.loads(str(self.rfile.readline(), 'utf-8'))
 
-        cur_thread = threading.current_thread()
-        response = "{} {}: {}".format(self.client_address[0], cur_thread.name, msg)
+        # append IP info
+        json_msg['ip'] = self.client_address[0]
 
-        socketio.emit('my response', {'data': response})
+        socketio.emit('my response', json_msg)
 
 
 def start_socket_server(ip, port, *, workers=5):
@@ -43,18 +43,18 @@ def index():
 
 @socketio.on('my event')
 def test_message(message):
-    emit('my response', {'data': message['data']})
+    emit('my response', {'msg': message['data']})
 
 
 @socketio.on('disconnect request')
 def disconnect_request():
-    emit('my response', {'data': 'Disconnected!'})
+    emit('my response', {'msg': 'Disconnected!'})
     disconnect()
 
 
 @socketio.on('connect')
 def test_connect():
-    emit('my response', {'data': 'Connected'})
+    emit('my response', {'msg': 'Flask Connected'})
 
 
 if __name__ == '__main__':

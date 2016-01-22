@@ -1,5 +1,8 @@
+import os
 import time
 from socket import socket, AF_INET, SOCK_STREAM
+
+import sys
 
 
 def follow(the_file):
@@ -24,7 +27,11 @@ def socket_send(msg):
         sock.close()
 
 if __name__ == '__main__':
-    logfile = open('/var/log/system.log', 'r')
+    log_path = sys.argv[1]
+    color = sys.argv[2]
+
+    log_name = os.path.basename(log_path)
+    logfile = open(log_path, 'r')
     log_lines = follow(logfile)
     for line in log_lines:
-        socket_send(line)
+        socket_send('{{"name": "{0}", "color": "{1}","msg": "{2}"}}'.format(log_name, color, line.strip()))

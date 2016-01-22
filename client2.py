@@ -19,4 +19,4 @@ if __name__ == '__main__':
     while True:
         time.sleep(10)
         count += 1
-        socket_send("Client 2 sent: message number " + str(count))
+        socket_send('{{"msg": "Client 2 sent: message number {0}"}}'.format(str(count)))
